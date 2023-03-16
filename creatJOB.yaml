@@ -4,11 +4,13 @@ metadata:
   name: countdown-xfusion
 spec:
   template:
+   metadata:
+      name: countdown-devops
     spec:
       containers:
       - name: container-countdown-xfusion
         image: ubuntu:latest
         command: ["/bin/sh"]
-        args: ["for i in ten nine eight seven six five four three two one ; do echo $i ; done"]
+        args: ["for i in ten nine eight seven six five four three two one ; do echo $i ; done",]
       restartPolicy: Never
   backoffLimit: 4
