@@ -3,31 +3,34 @@ kind: Pod
 metadata:
   name: envars
 spec:
-  template:
-    # This is the pod template
-    spec:
-      containers:
-      - name: fieldref-container
-        image: httpd:latest
-        command: ['sh', '-c', 'while true; do echo -en '/n'; printenv NODE_NAME POD_NAME; printenv POD_IP POD_SERVICE_ACCOUNT; sleep 10; done;']
-        env:
-         - name: NODE_NAME
-           valueFrom:
-            fieldRef:
-               fieldPath: spec.nodeName
-
-         -name: POD_NAME
+  containers:
+    - name: fieldref-container
+      image: httpd:latest
+      command: ['sh', '-c']
+      args:
+      - while true; do
+          echo -en '\n';
+          printenv NODE_NAME POD_NAME;
+          printenv POD_IP POD_SERVICE_ACCOUNT;
+          sleep 10;
+          done;
+      env:
+        - name: NODE_NAME
           valueFrom:
             fieldRef:
-               fieldPath: metadata.name
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
          
-         -name: POD_IP
+        - name: POD_IP
           valueFrom:
             fieldRef:
-               fieldPath: status.podIP
+              fieldPath: status.podIP
 
-         -name: POD_SERVICE_ACCOUNT
+        - name: POD_SERVICE_ACCOUNT
           valueFrom:
             fieldRef:
-               fieldPath: spec.serviceAccountName
-   restartPolicy: Never
+              fieldPath: spec.serviceAccountName
+  restartPolicy: Never
