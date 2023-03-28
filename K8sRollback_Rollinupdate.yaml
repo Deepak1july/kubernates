@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-deploy
+  labels:
+    app: nginx
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: httpd-deploy
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:2.4.28
+        ports:
+        - containerPort: 80
+   strategy:
+    type: RollingUpdate
+    rollingUpdate:
+     maxUnavailable: 2
+     maxSurge: 1
