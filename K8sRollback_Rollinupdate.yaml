@@ -16,7 +16,7 @@ spec:
       containers:
       - name: httpd
         image: httpd:2.4.28
-   strategy:
+  strategy:
     type: RollingUpdate
     rollingUpdate:
      maxUnavailable: 2
@@ -35,3 +35,4 @@ spec:
    - port: 80
      targetPort: 80
      nodePort: 30008
+
