@@ -36,3 +36,26 @@ kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-ru
 OR
 kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml
 ------------------
+# Get commands with basic output
+kubectl get services                          # List all services in the namespace
+kubectl get pods --all-namespaces             # List all pods in all namespaces
+kubectl get pods -o wide                      # List all pods in the current namespace, with more details
+kubectl get deployment my-dep                 # List a particular deployment
+kubectl get pods                              # List all pods in the namespace
+kubectl get pod my-pod -o yaml                # Get a pod's YAML
+
+# Describe commands with verbose output
+kubectl describe nodes my-node
+kubectl describe pods my-pod
+
+# List Services Sorted by Name
+kubectl get services --sort-by=.metadata.name
+
+# List pods Sorted by Restart Count
+kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
+
+# List PersistentVolumes sorted by capacity
+kubectl get pv --sort-by=.spec.capacity.storage
+========================
+
+
